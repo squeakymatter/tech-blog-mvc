@@ -86,7 +86,6 @@ router.put('/:id', (req, res) => {
 
 //delete user from database
 // DELETE /api/users/<user id>
-// DELETE /api/users/1
 router.delete('/:id', (req, res) => {
   User.destroy({
     where: {
@@ -104,6 +103,29 @@ router.delete('/:id', (req, res) => {
       console.log(err)
       res.status(500).json(err)
     })
+})
+
+//login route
+router.post('/login', (req, res) => {
+  // expects {username: 'Lernantino', password: 'password1234'}
+  User.findOne({
+    where: {
+      username: req.body.username,
+    },
+  }).then((dbUserData) => {
+    if (!dbUserData) {
+      res.status(400).json({ message: 'No user with that email address!' })
+      return
+    }
+    // Verify user using bCrypt checkPassword method
+    const validPassword = dbUserData.checkPassword(req.body.password)
+    if (!validPassword) {
+      res.status(400).json({ message: 'Incorrect password!' })
+      return
+    }
+
+    res.json({ user: dbUserData, message: 'You are now logged in!' })
+  })
 })
 
 module.exports = router
