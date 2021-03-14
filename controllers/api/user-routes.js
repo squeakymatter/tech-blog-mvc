@@ -39,13 +39,12 @@ router.get('/:id', (req, res) => {
 
 // POST /api/users
 router.post('/', (req, res) => {
-  // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
+  // expects {username: 'Lernantino', password: 'password1234'}
   /* create() method = 
-  INSERT INTO users (username, email, password)
-  VALUES ("Lernantino", "lernantino@gmail.com", "password1234"); */
+  INSERT INTO users (username, password)
+  VALUES ("Lernantino", "password1234"); */
   User.create({
     username: req.body.username,
-    email: req.body.email,
     password: req.body.password,
   })
     .then((dbUserData) => res.json(dbUserData))
@@ -59,12 +58,12 @@ router.post('/', (req, res) => {
 // PUT /api/users/<user id>
 // PUT /api/users/1
 router.put('/:id', (req, res) => {
-  // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
+  // expects {username: 'Lernantino', password: 'password1234'}
 
   // if req.body has exact key/value pairs to match the model, you can just use `req.body` instead
   User.update(req.body, {
     /* UPDATE users
-      SET username = "Lernantino", email = "lernantino@gmail.com", password = "newPassword1234"
+      SET username = "Lernantino", password = "newPassword1234"
       WHERE id = 1; */
     individualHooks: true,
     where: {
@@ -114,7 +113,7 @@ router.post('/login', (req, res) => {
     },
   }).then((dbUserData) => {
     if (!dbUserData) {
-      res.status(400).json({ message: 'No user with that email address!' })
+      res.status(400).json({ message: 'No user with that username!' })
       return
     }
     // Verify user using bCrypt checkPassword method
