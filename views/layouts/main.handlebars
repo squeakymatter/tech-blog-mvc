@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Tech Blog</title>
+    <title>Just Tech News</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
@@ -12,14 +12,21 @@
     <div class="wrapper">
         <header>
             <h1>
-                <a href="/">The Tech Blog</a>
+                <a href="/">Just Tech News</a>
             </h1>
+            <nav>
+                <button id="logout" class="btn-no-style">logout</button>
+                <a href="/login">login</a>
+            </nav>
         </header>
         <main>
             {{{ body }}}
         </main>
+        <footer>
+            Thanks for visiting!
+        </footer>
     </div>
-
+    <script src="/javascript/logout.js"></script>
 </body>
 
 </html>

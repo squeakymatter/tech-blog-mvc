@@ -60,12 +60,15 @@ router.post('/', (req, res) => {
   User.create({
     username: req.body.username,
     password: req.body.password,
-  })
-    .then((dbUserData) => res.json(dbUserData))
-    .catch((err) => {
-      console.log(err)
-      res.status(500).json(err)
+  }).then((dbUserData) => {
+    req.session.save(() => {
+      req.session.user_id = dbUserData.id
+      req.session.username = dbUserData.username
+      req.session.loggedIn = true
+
+      res.json(dbUserData)
     })
+  })
 })
 
 //update existing data
@@ -120,39 +123,44 @@ router.delete('/:id', (req, res) => {
 
 //login route
 router.post('/login', (req, res) => {
-  // expects {username: 'Lernantino', password: 'password1234'}
+  // expects {username: 'lernantino', password: 'password1234'}
   User.findOne({
     where: {
       username: req.body.username,
     },
-    include: [
-      {
-        model: Post,
-        attributes: ['id', 'title', 'content', 'created_at'],
-      },
-      {
-        model: Comment,
-        attributes: ['id', 'comment_text', 'created_at'],
-        include: {
-          model: Post,
-          attributes: ['title'],
-        },
-      },
-    ],
   }).then((dbUserData) => {
     if (!dbUserData) {
       res.status(400).json({ message: 'No user with that username!' })
       return
     }
-    // Verify user using bCrypt checkPassword method
+
     const validPassword = dbUserData.checkPassword(req.body.password)
+
     if (!validPassword) {
       res.status(400).json({ message: 'Incorrect password!' })
       return
     }
 
-    res.json({ user: dbUserData, message: 'You are now logged in!' })
+    req.session.save(() => {
+      req.session.user_id = dbUserData.id
+      req.session.username = dbUserData.username
+      req.session.loggedIn = true
+
+      res.json({ user: dbUserData, message: 'You are now logged in!' })
+    })
   })
+})
+
+//logout route
+
+router.post('/logout', (req, res) => {
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end()
+    })
+  } else {
+    res.status(404).end()
+  }
 })
 
 module.exports = router

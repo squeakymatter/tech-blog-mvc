@@ -9,9 +9,4 @@ const homeRoutes = require('./home-routes.js')
 router.use('/api', apiRoutes)
 router.use('/', homeRoutes)
 
-//if reqest to endpoing doesn't exist, reply with 404 (incorrect resource)
-router.use((req, res) => {
-  res.status(404).end()
-})
-
 module.exports = router

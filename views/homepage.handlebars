@@ -2,16 +2,17 @@
     {{#each posts as |post|}}
     <li>
         <article class="post">
-            <div class="title">
-                <a href="{{post.post_url}}" target="_blank">{{post.title}}</a>
-                <span>({{post.post_url}})</span>
+            <div class="title">{{post.title}}
             </div>
+            <div class="content">{{post.content}}</div>
             <div class="meta">
-                {{post.vote_count}} point(s) by {{post.user.username}} on
+                Posted by {{post.user.username}} on
                 {{post.created_at}}
-                |
-                <a href="/post/{{post.id}}">{{post.comments.length}} comment(s)</a>
             </div>
+        </article>
+        <article>
+            <div class="comment">Comment{{post.comments}}</div>
+
         </article>
     </li>
     {{/each}}
