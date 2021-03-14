@@ -4,8 +4,10 @@
 const router = require('express').Router()
 
 const apiRoutes = require('./api')
+const homeRoutes = require('./home-routes.js')
 
 router.use('/api', apiRoutes)
+router.use('/', homeRoutes)
 
 //if reqest to endpoing doesn't exist, reply with 404 (incorrect resource)
 router.use((req, res) => {
