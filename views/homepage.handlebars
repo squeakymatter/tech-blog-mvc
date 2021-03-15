@@ -2,7 +2,8 @@
     {{#each posts as |post|}}
     <li>
         <article class="post">
-            <div class="title">{{post.title}}
+            <div class="title">
+                <a href="/post/{{post.id}}">{{post.title}}</a>
             </div>
             <div class="content">{{post.content}}</div>
             <div class="meta">
@@ -11,8 +12,7 @@
             </div>
         </article>
         <article>
-            <div class="comment">Comment{{post.comments}}</div>
-
+            <div class="comment">{{post.comment}}</div>
         </article>
     </li>
     {{/each}}
