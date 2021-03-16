@@ -1,23 +1,28 @@
+{{> post-info post}}
 {{> comments post.comments}}
 
-<article class="post">
-    <div class="title">{{post.title}}</a>
-    </div>
-    <div class="meta">
-        Posted by {{post.user.username}} on
-        {{post.created_at}}
-    </div>
-</article>
 {{#if loggedIn}}
-<form class="comment-form">
-    <div>
-        <textarea name="comment-body"></textarea>
-    </div>
 
-    <div>
-        <button type="submit">add comment</button>
+<div class="card bg-primary">
+    <div class="card-header"></div>
+    <div class="card-body">
+        <form class="comment-form">
+            <div class="form-group">
+                <label>Comment</label>
+                <textarea type="text-area" id="comment-text" class="form-control" style='height:100px'></textarea>
+            </div>
+            <p>
+                <button type="submit">Add Comment</button>
+            </p>
+        </form>
     </div>
-</form>
+</div>
+<p>
+</p>
+<p>
+    <a href="/"> &larr; Go Back</a>
+</p>
+
 {{/if}}
 
 {{#if loggedIn}}
