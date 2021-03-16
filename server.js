@@ -10,7 +10,7 @@ const helpers = require('./utils/helpers')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
 
 const sess = {
-  secret: process.env.SECRET,
+  secret: thisIsASecret,
   cookie: {},
   resave: false,
   saveUninitialized: true,
