@@ -7,7 +7,7 @@ Dependencies: bcrypt, connect-session sequelize, dotenv, express, express-handle
 
 It is deployed via heroku at https://immense-cove-51984.herokuapp.com/.
 
-
+---- 
 #### User Story
 AS A developer who writes about tech
 - I WANT a CMS-style blog site
